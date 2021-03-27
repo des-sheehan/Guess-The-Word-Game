@@ -21,3 +21,49 @@ qwerty.addEventListener('click', e => {
     }
   });
   
+// Going to need to find a way of selecting the qwerty class to match them with letters
+// // not sure if I even need this now
+qwerty.getElementsByTagName('button')[0].textContent
+
+// lower case phrases
+  const phrases = [
+    'back to the future',
+    'indiana jones',
+    'jaws',
+    'jurassic park',
+    'star wars',
+    'rambo',
+    'superman',
+    'terminator',
+    'die hard'
+];
+
+// captialized first phrases
+const phrases = [
+    'Back To The Future',
+    'Indiana Jones',
+    'Jaws',
+    'Jurassic Park',
+    'Star Wars',
+    'Rambo',
+    'Superman',
+    'Terminator',
+    'Die Hard'
+];
+
+//check if the game has been won or lost
+const checkWin = () => {
+  const title = overlay.querySelector('.title');
+  
+    if ( letters.length === correct.length ) {
+      overlay.style.display = 'flex';
+      overlay.classList.remove('start');
+      overlay.classList.add('win');
+      title.textContent = 'Congratulations!'
+    } else if ( missed > 4 ) {
+        overlay.style.display = 'flex'
+        overlay.classList.remove('start');
+        overlay.classList.add('lose');
+        title.textContent = 'Better Luck Next Time!'
+    }
+  }

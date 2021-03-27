@@ -1,20 +1,29 @@
 
+// Need to switch Start and Reset button functions
+
+const overlay = document.getElementById('overlay');
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
-const resetButton = document.getElementsByClassName('btn__reset')[0];
+
+const startButton = document.getElementsByClassName('btn__reset')[0];
 const startOverlay = document.getElementsByClassName('start');
-const missed = 0;
+const scoreboard = document.querySelector('#scoreboard ol')
+const title = overlay.querySelector('.title');
+
+var letters = document.getElementsByClassName('letter');
+var correct = document.getElementsByClassName('show')
+var missed = 0;
 
 const phrases = [
-    'BACK TO THE FUTURE',
-    'INDIANA JONES',
-    'JAWS',
-    'JURASSIC PARK',
-    'STAR WARS',
-    'RAMBO',
-    'SUPERMAN',
-    'TERMINATOR',
-    'DIE HARD'
+  'back to the future',
+  'indiana jones',
+  'jaws',
+  'jurassic park',
+  'star wars',
+  'rambo',
+  'superman',
+  'terminator',
+  'die hard'
 ];
 
 //random whole number generator
@@ -27,12 +36,12 @@ const getRandomInt = (min, max) => {
 //select a random array number
 const randomArrayNumber = getRandomInt(0, phrases.length);
 
-//Start Button Event Listener
-    resetButton.addEventListener('click', () => {
-      const overlay = document.getElementById('overlay');
+//Start Button Event Listener to hide Overlay
+    startButton.addEventListener('click', () => {
       overlay.style.display = 'none';
   });
 
+// Change Phrase to Letters
 const getRandomPhraseAsArray = (arr) => {
   const randomArray = arr[randomArrayNumber];
   const letterArray = randomArray.split('');
@@ -41,7 +50,6 @@ const getRandomPhraseAsArray = (arr) => {
 
 //run function on phrases
 const phraseArray = getRandomPhraseAsArray(phrases);
-
 
 // // adds the letters of a string to the display
 const addPhraseToDisplay = arr => {
@@ -62,47 +70,62 @@ const addPhraseToDisplay = arr => {
 //run add Phrase function
 addPhraseToDisplay(phraseArray);
 
-// Going to need to find a way of selecting the qwerty class to match them with letters
-// // not sure if I even need this now
-qwerty.getElementsByTagName('button')[0].textContent
-
-
-
 //check if a letter is in the phrase game
 const checkLetter = (qwertyButton) => {
-  const letters = document.getElementsByClassName('letter');
-  const match = null;
+  var match = null;
 
   for ( i = 0; i < letters.length; i++) {
     if (letters[i].textContent === qwertyButton.textContent) {
-      letter[i].classList.add('show')
+      letters[i].classList.add('show')
       match = letters[i].textContent;
     } 
   }
+  // This fires an error even wen scoreboard has no Child Nodes
+
+  // Increase Missed Value and remove Heart
+  if ( match === null ) {
+    missed++;
+    if (scoreboard.firstChild.hasChildNodes) {scoreboard.removeChild(scoreboard.firstElementChild); }
   return match;
-  console.log(match);
+  }
 }   
-
-//check if the game has been won or lost
-// const checkWin = () => {
-
-// }
-
-//listen for the start game button to be pressed
-// startButton.addEventListener('click', e => {
-
-// });
 
  //list for the onscreen keyboard to be clicked
  qwerty.addEventListener('click', e => {
-  let button = e.target;
+  var button = e.target;
   if (button.tagName === 'BUTTON') {
       button.classList.add('chosen');
       button.disabled = true;
   } else {
       button.disabled = false;
   }
-
   const letterFound = checkLetter(button);
 });
 
+// want to stop buttons being pressed when game is over (if overlay doesn't hide them)
+
+// //need to actually run the function!!! 
+// const win = ( letters.length === correct.length );
+// const lose = ( missed > 4 )
+
+//check if the game has been won or lost
+const checkWin = () => {
+    if ( letters.length === correct.length ) {
+      overlay.style.display = 'flex';
+      overlay.classList.remove('start');
+      overlay.classList.add('win');
+      title.textContent = 'Congratulations!'
+    } else if ( missed > 4 ) {
+        overlay.style.display = 'flex'
+        overlay.classList.remove('start');
+        overlay.classList.add('lose');
+        title.textContent = 'Better Luck Next Time!'
+    }
+  }
+
+checkWin();
+
+//listen for the start game button to be pressed
+// resetButton.addEventListener('click', e => {
+
+// });
