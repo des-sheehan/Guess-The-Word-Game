@@ -80,19 +80,8 @@ const checkLetter = (qwertyButton) => {
       letters[i].classList.add('show')
       match = letters[i].textContent;
     } 
-    checkWin();
   }
-  // This fires an error even wen scoreboard has no Child Nodes
-
-// This needs to be refined, a value for null is achieved by not even clicking a letter.
-// clicking anywhere give no match and = null = missed++
-
-  // Increase Missed Value and remove Heart
-  if ( match === null ) {
-    missed++;
-    if (scoreboard.firstChild.hasChildNodes) {scoreboard.removeChild(scoreboard.firstElementChild); }
   return match;
-  }
 }   
 
  //listen for the onscreen keyboard to be clicked
@@ -101,13 +90,17 @@ const checkLetter = (qwertyButton) => {
   if (button.tagName === 'BUTTON') {
       button.classList.add('chosen');
       button.disabled = true;
-  } else {
-      button.disabled = false;
+  
+  const letterChosen = checkLetter(button);
+  if ( letterChosen === null ) {
+    missed++;
+    if (scoreboard.firstChild.hasChildNodes) {scoreboard.removeChild(scoreboard.firstElementChild); }
+    return missed;
   }
-  const letterFound = checkLetter(button);
+  checkWin();
+  }
 });
 
-// want to stop buttons being pressed when game is over (if overlay doesn't hide them)
 // i could maybe let the condition for winning be a variable 'win'
 // then when adding the classname, use the variable.textContent.
 // this way I could shorten all this repeating code.
@@ -131,6 +124,9 @@ const checkWin = () => {
     playAgain();
       }
   }
+
+// Adds a reset (play again) button
+// on click it reloads the page.
 
 const playAgain = () => {
   overlay.removeChild(startButton);
