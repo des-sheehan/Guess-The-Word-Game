@@ -94,12 +94,13 @@ const checkLetter = (qwertyButton) => {
   const letterChosen = checkLetter(button);
   if ( letterChosen === null ) {
     missed++;
-    if (scoreboard.firstChild.hasChildNodes) {scoreboard.removeChild(scoreboard.firstElementChild); }
-    return missed;
+    if (scoreboard.firstChild.hasChildNodes) {scoreboard.removeChild(scoreboard.firstElementChild); 
+    }
   }
-  checkWin();
+    checkWin();
   }
 });
+
 
 // i could maybe let the condition for winning be a variable 'win'
 // then when adding the classname, use the variable.textContent.
@@ -108,20 +109,20 @@ const checkLetter = (qwertyButton) => {
 //check if the game has been won or lost
 const checkWin = () => {  
   var win = correct.length === letters.length;
-  var lose = missed >= 4;
+  var lose = (missed > 4);
 
   if ( win ) {
+      title.textContent = 'Congratulations!'
       overlay.style.display = 'flex';
       overlay.classList.remove('start');
       overlay.classList.add('win');
-      title.textContent = 'Congratulations!'
       playAgain();
   } else if ( lose ) {
-    overlay.style.display = 'flex'
-    overlay.classList.remove('start');
-    overlay.classList.add('lose');
-    title.textContent = 'Better Luck Next Time!'
-    playAgain();
+      title.textContent = 'Better Luck Next Time!'
+      overlay.style.display = 'flex'
+      overlay.classList.remove('start');
+      overlay.classList.add('lose');
+      playAgain();
       }
   }
 
