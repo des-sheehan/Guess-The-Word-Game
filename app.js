@@ -95,10 +95,9 @@ const checkLetter = (qwertyButton) => {
     missed++;
       // for the hearts i could push/pop/whatever the items src with liveHeart.png and lostHeart.png.
       // this would make it much easier to bring them back.
-  for (i = 4; i < NaN; i-- ) {
+  for (i = 0; i < hearts.length; i++ ) {
       hearts[i].src = "images/lostHeart.png";
     }
-
   }
     checkWin();
   }
@@ -111,9 +110,9 @@ const checkLetter = (qwertyButton) => {
 
 // for the hearts i could push/pop/whatever the items src with liveHeart.png and lostHeart.png.
 // this would make it much easier to bring them back.
-for (i = 0; i < hearts.length; i++ ) {
-  hearts[i].src = "images/lostHeart.png";
-  }
+// for (i = 0; i < hearts.length; i++ ) {
+//   hearts[i].src = "images/lostHeart.png";
+//   }
 
 
 // i could maybe let the condition for winning be a variable 'win'
