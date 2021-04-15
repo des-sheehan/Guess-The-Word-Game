@@ -135,19 +135,17 @@ const playAgain = () => {
     missed = 0;
     // loop through hearts to return 5 items
     for (i = 0; i < hearts.length; i++) {
-      let newHeart = document.createElement('LI');
-      newHeart.src = 'images/liveHeart.png';
-      newHeart.classList.add = 'tries';
-      scoreboard.appendChild(newHeart);
+      hearts[i].src = 'images/liveHeart.png';
     } 
     // remove existing phrase 
-    phraseRemove();
-    //run add Phrase function
+    phrase.innerHTML = ''
+    // get a random Phrase
+    getRandomPhraseAsArray(phrases);
+    // add Phrase to display
     addPhraseToDisplay(phraseArray);
-    // loop through keyboard to remove chosen class and disabled status.
+    // removes chosen class and disabled status on keyboard
     qwertyReset()
-
-    //remove 'show' class
+    //remove 'show' class on phrase display
     for ( i = 0; i < letters.length; i++) {
         letters[i].classList.remove('show')      
    }
@@ -159,13 +157,6 @@ const qwertyReset = () => {
     for (i = 0; i < qwerty.getElementsByTagName('button').length; i++) {
     qwerty.getElementsByTagName('button')[i].classList.remove("chosen");
     qwerty.getElementsByTagName('button')[i].disabled = false;
-  }
-}
-
-//function to remove the existing phrase
-const phraseRemove = () => {for (i = 0; i < phrase.childElementCount; i++) {
-  var li = phrase.children[i];
-  phrase.removeChild(li);
   }
 }
 
