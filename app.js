@@ -91,34 +91,14 @@ const checkLetter = (qwertyButton) => {
       button.disabled = true;
   
   const letterChosen = checkLetter(button);
+  // when not a match, increase missed value and change heart to lost img.
   if ( letterChosen === null ) {
     missed++;
-      // for the hearts i could push/pop/whatever the items src with liveHeart.png and lostHeart.png.
-      // this would make it much easier to bring them back.
-  for (i = 0; i < hearts.length; i++ ) {
-      hearts[i].src = "images/lostHeart.png";
-    }
-  }
-    checkWin();
+    hearts[missed - 1].src = "images/lostHeart.png";
+   }
+  checkWin();
   }
 });
-
-// remove heart element
-    // if (scoreboard.firstChild.hasChildNodes) {
-    //   scoreboard.removeChild(scoreboard.firstElementChild); 
-    // }
-
-// for the hearts i could push/pop/whatever the items src with liveHeart.png and lostHeart.png.
-// this would make it much easier to bring them back.
-// for (i = 0; i < hearts.length; i++ ) {
-//   hearts[i].src = "images/lostHeart.png";
-//   }
-
-
-// i could maybe let the condition for winning be a variable 'win'
-// then when adding the classname, use the variable.textContent.
-// this way I could shorten all this repeating code.
-
 
 //check if the game has been won or lost
 const checkWin = () => {  
@@ -141,21 +121,6 @@ const checkWin = () => {
   }
 
 // Adds a reset (play again) button
-// on click it reloads the page.
-
-// const playAgain = () => {
-//   overlay.removeChild(startButton);
-//   let resetButton = document.createElement('BUTTON');
-//   overlay.appendChild(resetButton);
-//   resetButton.textContent = 'Play Again';
-//   resetButton.classList.add('btn__reset');
-//   resetButton.addEventListener('click', e => {
-//     window.location.reload();
-//   }
-// )};
-
-
-// Adds a reset (play again) button
 const playAgain = () => {
   //removes start button and makes a new play again button
   overlay.removeChild(startButton);
@@ -174,7 +139,6 @@ const playAgain = () => {
       newHeart.src = 'images/liveHeart.png';
       newHeart.classList.add = 'tries';
       scoreboard.appendChild(newHeart);
-      
     } 
     // remove existing phrase 
     phraseRemove();
@@ -183,8 +147,11 @@ const playAgain = () => {
     // loop through keyboard to remove chosen class and disabled status.
     qwertyReset()
 
-   
-  }  
+    //remove 'show' class
+    for ( i = 0; i < letters.length; i++) {
+        letters[i].classList.remove('show')      
+   }
+  }
 )};
 
 // function to loop through qwerty keyboard and remove chosen class and disabled status.
@@ -196,8 +163,26 @@ const qwertyReset = () => {
 }
 
 //function to remove the existing phrase
-const phraseRemove = () => {for (i = 0; i < phrase.getElementsByTagName('LI').length; i++) {
-  var li = phrase.getElementsByTagName('LI')[0];
+const phraseRemove = () => {for (i = 0; i < phrase.childElementCount; i++) {
+  var li = phrase.children[i];
   phrase.removeChild(li);
   }
 }
+
+
+//  ---- Old Reset ----
+
+// Adds a reset (play again) button
+// on click it RELOADS the page.
+
+// const playAgain = () => {
+//   overlay.removeChild(startButton);
+//   let resetButton = document.createElement('BUTTON');
+//   overlay.appendChild(resetButton);
+//   resetButton.textContent = 'Play Again';
+//   resetButton.classList.add('btn__reset');
+//   resetButton.addEventListener('click', e => {
+//     window.location.reload();
+//   }
+// )};
+
