@@ -27,6 +27,11 @@ const phrases = [
   'die hard'
 ];
 
+//Start Button Event Listener to hide Overlay
+startButton.addEventListener('click', () => {
+  overlay.style.display = 'none';
+});
+
 //random whole number generator
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -34,14 +39,9 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min); 
 }
 
-//select a random array number
+// random number between 0 and array length
 const randomArrayNumber = getRandomInt(0, phrases.length);
   
-//Start Button Event Listener to hide Overlay
-    startButton.addEventListener('click', () => {
-      overlay.style.display = 'none';
-  });
-
 // Change Phrase to Letters
 const getRandomPhraseAsArray = (arr) => {
   const randomArray = arr[randomArrayNumber];
@@ -49,8 +49,7 @@ const getRandomPhraseAsArray = (arr) => {
   return letterArray;
 } 
 
-// run function on phrases
-const phraseArray = getRandomPhraseAsArray(phrases);
+var phraseArray = getRandomPhraseAsArray(phrases);
 
 // adds the letters of a string to the display
 const addPhraseToDisplay = arr => {
@@ -108,14 +107,12 @@ const checkWin = () => {
   if ( win ) {
       title.textContent = 'Congratulations!'
       overlay.style.display = 'flex';
-      overlay.classList.remove('start');
-      overlay.classList.add('win');
+      overlay.className = 'win';
       playAgain();
   } else if ( lose ) {
       title.textContent = 'Better Luck Next Time!'
       overlay.style.display = 'flex'
-      overlay.classList.remove('start');
-      overlay.classList.add('lose');
+      overlay.className = 'lose';
       playAgain();
       }
   }
@@ -137,12 +134,14 @@ const playAgain = () => {
     for (i = 0; i < hearts.length; i++) {
       hearts[i].src = 'images/liveHeart.png';
     } 
+    
     // remove existing phrase 
     phrase.innerHTML = ''
     // get a random Phrase
-    getRandomPhraseAsArray(phrases);
+    var phraseArray = getRandomPhraseAsArray(phrases);
     // add Phrase to display
     addPhraseToDisplay(phraseArray);
+
     // removes chosen class and disabled status on keyboard
     qwertyReset()
     //remove 'show' class on phrase display
