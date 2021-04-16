@@ -1,6 +1,4 @@
 
-// Need to switch Start and Reset button functions
-
 const overlay = document.getElementById('overlay');
 const qwerty = document.getElementById('qwerty');
 const phrase = document.querySelector('#phrase ul');
@@ -13,7 +11,6 @@ const title = overlay.querySelector('.title');
 var letters = document.getElementsByClassName('letter');
 var correct = document.getElementsByClassName('show')
 var missed = 0;
-
 
 const phrases = [
   'back to the future',
@@ -30,6 +27,8 @@ const phrases = [
 //Start Button Event Listener to hide Overlay
 startButton.addEventListener('click', () => {
   overlay.style.display = 'none';
+  var phraseArray = getRandomPhraseAsArray(phrases);
+  addPhraseToDisplay(phraseArray);
 });
 
 //random whole number generator
@@ -38,21 +37,17 @@ const getRandomInt = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); 
 }
-
-// random number between 0 and array length
-const randomArrayNumber = getRandomInt(0, phrases.length);
-  
+ 
 // Change Phrase to Letters
 const getRandomPhraseAsArray = (arr) => {
+  const randomArrayNumber = getRandomInt(0, phrases.length);
   const randomArray = arr[randomArrayNumber];
   const letterArray = randomArray.split('');
   return letterArray;
 } 
 
-var phraseArray = getRandomPhraseAsArray(phrases);
-
 // adds the letters of a string to the display
-const addPhraseToDisplay = arr => {
+const addPhraseToDisplay = phraseArray => {
   for (i = 0; i < phraseArray.length; i++) {
     var li = document.createElement('LI');
     phrase.appendChild(li);
@@ -65,9 +60,6 @@ const addPhraseToDisplay = arr => {
     }
   } 
 }
-
-//run add Phrase function
-addPhraseToDisplay(phraseArray);
 
 //check if a letter is in the phrase game
 const checkLetter = (qwertyButton) => {
@@ -158,21 +150,3 @@ const qwertyReset = () => {
     qwerty.getElementsByTagName('button')[i].disabled = false;
   }
 }
-
-
-//  ---- Old Reset ----
-
-// Adds a reset (play again) button
-// on click it RELOADS the page.
-
-// const playAgain = () => {
-//   overlay.removeChild(startButton);
-//   let resetButton = document.createElement('BUTTON');
-//   overlay.appendChild(resetButton);
-//   resetButton.textContent = 'Play Again';
-//   resetButton.classList.add('btn__reset');
-//   resetButton.addEventListener('click', e => {
-//     window.location.reload();
-//   }
-// )};
-
